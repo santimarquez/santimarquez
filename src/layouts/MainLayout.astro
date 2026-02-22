@@ -4,7 +4,6 @@ import { ViewTransitions } from 'astro:transitions';
 import BaseHead from '../components/layout/BaseHead.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
-import MobileBottomNav from '../components/layout/MobileBottomNav.astro';
 import { t, type Locale } from '../utils/i18n';
 import { buildPersonSchema } from '../utils/schema';
 
@@ -39,11 +38,10 @@ const schemaJson = personSchema
   </head>
   <body>
     <Header locale={locale} t={tBind} />
-    <main class="min-h-screen pt-[64px] pb-20 md:pb-0 md:pt-[72px]">
+    <main class="min-h-screen pt-[64px] md:pt-[72px]">
       <slot />
     </main>
     <Footer t={tBind} />
-    <MobileBottomNav locale={locale} t={tBind} />
     <ViewTransitions />
   </body>
 </html>

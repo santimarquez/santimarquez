@@ -3,9 +3,8 @@
 
 <button
   type="button"
-  id="theme-toggle"
+  class="theme-toggle rounded-lg p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
   aria-label="Toggle dark mode"
-  class="rounded-lg p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
 >
   <span class="dark:hidden" aria-hidden="true">☀</span>
   <span class="hidden dark:inline" aria-hidden="true">☽</span>
@@ -26,13 +25,13 @@
     }
     function initThemeToggle() {
       setTheme(getPreferred());
-      const btn = document.getElementById('theme-toggle');
-      if (btn && !btn.hasAttribute('data-theme-bound')) {
+      document.querySelectorAll('.theme-toggle').forEach((btn) => {
+        if (btn.hasAttribute('data-theme-bound')) return;
         btn.setAttribute('data-theme-bound', 'true');
         btn.addEventListener('click', () => {
           setTheme(root.classList.contains('dark') ? 'light' : 'dark');
         });
-      }
+      });
     }
     initThemeToggle();
     document.addEventListener('astro:page-load', initThemeToggle);
