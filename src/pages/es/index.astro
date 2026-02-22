@@ -1,0 +1,20 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import TechStack from '../../components/sections/TechStack.astro';
+import ExperienceTimeline from '../../components/sections/ExperienceTimeline.astro';
+import Projects from '../../components/sections/Projects.astro';
+import Contact from '../../components/sections/Contact.astro';
+import { t } from '../../utils/i18n';
+
+const locale = 'es';
+const tBind = (key: string) => t(locale, key);
+---
+
+<MainLayout locale={locale} title="Santi Márquez — Engineering Manager" description="Líder de ingeniería. Diseño de sistemas, escalado y crecimiento de equipos. Orientado a producto, liderazgo y sistemas a escala.">
+  <Hero locale={locale} t={tBind} />
+  <TechStack locale={locale} t={tBind} />
+  <ExperienceTimeline locale={locale} t={tBind} />
+  <Projects locale={locale} t={tBind} />
+  <Contact locale={locale} t={tBind} />
+</MainLayout>

@@ -1,0 +1,24 @@
+---
+// Redirect root to preferred locale (en or es)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting…</title>
+    <script is:inline>
+      (function () {
+        var stored = localStorage.getItem('locale');
+        var preferred = navigator.language && navigator.language.toLowerCase().startsWith('es') ? 'es' : 'en';
+        var locale = stored === 'es' || stored === 'en' ? stored : preferred;
+        window.location.replace('/' + locale + '/');
+      })();
+    </script>
+    <meta http-equiv="refresh" content="0;url=/en/" />
+  </head>
+  <body>
+    <p>Redirecting…</p>
+  </body>
+</html>

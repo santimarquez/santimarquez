@@ -1,0 +1,72 @@
+---
+import MainLayout from '../../../../layouts/MainLayout.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { t } from '../../../../utils/i18n';
+
+const locale = 'es';
+const tBind = (key: string) => t(locale, key);
+const backHref = getRelativeLocaleUrl(locale, '/');
+
+const stackPills = ['Laravel 9', 'Vue 3', 'Vite', 'MongoDB', 'MySQL', 'RabbitMQ', 'Node.js', 'TypeScript', 'Docker', 'Bitbucket Pipelines', 'Matomo', 'Metabase'];
+---
+
+<MainLayout locale={locale} title="AlertaCoches.es — Santi Márquez" description="Agregador de anuncios de vehículos. Escalabilidad, liderazgo de equipo.">
+  <article class="px-4 py-12 sm:px-6 sm:py-16 md:py-24">
+    <div class="mx-auto max-w-4xl">
+      <a href={backHref} class="inline-flex items-center gap-2 text-sm font-medium text-charcoal-light hover:text-accent dark:text-slate-400 dark:hover:text-accent">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        Volver
+      </a>
+
+      <header class="mt-8">
+        <h1 class="text-3xl font-bold text-charcoal dark:text-slate-100 md:text-4xl">AlertaCoches.es</h1>
+        <p class="mt-4 text-lg leading-relaxed text-charcoal-light dark:text-slate-400">{tBind('projects.alertaCoches.description')}</p>
+      </header>
+
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Resumen</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          Agregador de anuncios de vehículos de segunda mano con API Laravel y SPA Vue, workers en Node.js para ingesta y RabbitMQ para eventos. 
+          Los anuncios se almacenan en MongoDB; usuarios y negocio en MySQL. Una landing en Laravel Blade dirige el tráfico a la app.
+        </p>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Arquitectura</h2>
+        <div class="mt-4 min-h-[240px] rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 dark:border-slate-700 dark:bg-slate-800/30 flex items-center justify-center">
+          <p class="text-sm text-charcoal-light dark:text-slate-500">Espacio para esquema visual — añadir diagrama en un paso posterior</p>
+        </div>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Flujo de datos</h2>
+        <ul class="mt-3 space-y-2 text-charcoal-light dark:text-slate-400">
+          <li><strong>Ingesta:</strong> Fuentes externas → importers Node → RabbitMQ <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">ad.save</code> → worker save-ad → MongoDB.</li>
+          <li><strong>Notificaciones:</strong> Worker publica en <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">alert.new-ad</code>, <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">ad.price-change</code>, etc. → consumidores Laravel → email/notificaciones.</li>
+          <li><strong>Búsqueda:</strong> Frontend Vue → API Laravel → MongoDB (anuncios, búsquedas) y MySQL (usuarios, negocio).</li>
+        </ul>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Diseño del sistema</h2>
+        <div class="mt-4 min-h-[200px] rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 dark:border-slate-700 dark:bg-slate-800/30 flex items-center justify-center">
+          <p class="text-sm text-charcoal-light dark:text-slate-500">Espacio para esquema visual</p>
+        </div>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Stack técnico</h2>
+        <div class="mt-4 flex flex-wrap gap-2">
+          {stackPills.map((tech) => (
+            <span class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-sm font-medium text-charcoal-light dark:border-slate-600 dark:bg-slate-700/50 dark:text-slate-300">{tech}</span>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Resultados</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">12M+ anuncios, 750K activos, 38K MAU, 1.1K nuevas altas/mes. Alta disponibilidad, seguridad y rendimiento para búsqueda y gestión de anuncios.</p>
+      </section>
+    </div>
+  </article>
+</MainLayout>
