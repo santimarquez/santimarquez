@@ -1,0 +1,55 @@
+---
+---
+<div class="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50/50 p-4 dark:border-slate-700 dark:bg-slate-800/30" aria-hidden="true">
+  <svg viewBox="0 0 640 280" class="mx-auto h-full min-h-[140px] w-full max-w-full object-contain" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <style>{`
+        .arch-box { fill: none; stroke: #00A3B5; stroke-width: 1.5; }
+        html.dark .arch-box { stroke: #5dd4e0; }
+        .arch-text { font: 11px Inter, system-ui, sans-serif; fill: #2C3E50; }
+        html.dark .arch-text { fill: #e2e8f0; }
+        .arch-arrow { stroke: #00A3B5; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+        html.dark .arch-arrow { stroke: #5dd4e0; }
+      `}</style>
+      <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+        <polygon points="0 0, 8 4, 0 8" fill="#00A3B5" />
+      </marker>
+    </defs>
+    <!-- User -->
+    <rect x="280" y="10" width="80" height="40" rx="6" class="arch-box" />
+    <text x="320" y="35" text-anchor="middle" class="arch-text">User</text>
+    <!-- Frontend -->
+    <rect x="280" y="70" width="80" height="40" rx="6" class="arch-box" />
+    <text x="320" y="95" text-anchor="middle" class="arch-text">Frontend</text>
+    <!-- API Node -->
+    <rect x="120" y="140" width="100" height="44" rx="6" class="arch-box" />
+    <text x="170" y="162" text-anchor="middle" class="arch-text">API (Node)</text>
+    <!-- CMS Laravel -->
+    <rect x="420" y="140" width="100" height="44" rx="6" class="arch-box" />
+    <text x="470" y="162" text-anchor="middle" class="arch-text">CMS (Laravel)</text>
+    <!-- RabbitMQ -->
+    <rect x="80" y="220" width="70" height="36" rx="4" class="arch-box" />
+    <text x="115" y="240" text-anchor="middle" class="arch-text">RabbitMQ</text>
+    <!-- MongoDB -->
+    <rect x="170" y="220" width="70" height="36" rx="4" class="arch-box" />
+    <text x="205" y="240" text-anchor="middle" class="arch-text">MongoDB</text>
+    <!-- MySQL -->
+    <rect x="260" y="220" width="70" height="36" rx="4" class="arch-box" />
+    <text x="295" y="240" text-anchor="middle" class="arch-text">MySQL</text>
+    <!-- Airflow -->
+    <rect x="350" y="220" width="70" height="36" rx="4" class="arch-box" />
+    <text x="385" y="240" text-anchor="middle" class="arch-text">Airflow</text>
+    <!-- Carfax / Cloudflare -->
+    <rect x="460" y="220" width="120" height="36" rx="4" class="arch-box" />
+    <text x="520" y="240" text-anchor="middle" class="arch-text">Carfax / Cloudflare</text>
+    <!-- Arrows -->
+    <path d="M 320 50 L 320 70" class="arch-arrow" />
+    <path d="M 320 110 L 220 140" class="arch-arrow" />
+    <path d="M 320 110 L 420 140" class="arch-arrow" />
+    <path d="M 170 184 L 115 220" class="arch-arrow" />
+    <path d="M 170 184 L 205 220" class="arch-arrow" />
+    <path d="M 170 184 L 295 220" class="arch-arrow" />
+    <path d="M 470 184 L 385 220" class="arch-arrow" />
+    <path d="M 470 184 L 520 220" class="arch-arrow" />
+  </svg>
+</div>

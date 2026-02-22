@@ -1,0 +1,16 @@
+---
+interface Props {
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  label: string;
+  locale: string;
+}
+
+const { value, suffix = '', prefix = '', label } = Astro.props;
+---
+
+<div class="metric-counter rounded-xl border border-slate-200 bg-slate-50/80 px-6 py-4 dark:border-slate-700 dark:bg-slate-800/50" data-value={value} data-suffix={suffix} data-prefix={prefix}>
+  <span class="metric-value block text-2xl font-semibold text-slate-900 dark:text-slate-100" aria-hidden="true">0</span>
+  <span class="text-sm text-slate-600 dark:text-slate-400">{label}</span>
+</div>

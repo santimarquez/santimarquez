@@ -1,0 +1,52 @@
+---
+import ProjectCard from '../ui/ProjectCard.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+interface Props {
+  locale: 'en' | 'es';
+  t: (key: string) => string;
+}
+
+const { locale, t } = Astro.props;
+
+function getTag(t: (k: string) => string, key: string): string {
+  const val = t(key);
+  return val && !val.startsWith('projects.') ? val : (key.includes('alertaCoches') ? 'Scale Solutions' : 'Performance');
+}
+
+const alertaCochesHref = getRelativeLocaleUrl(locale, '/projects/alertaCoches/');
+const santimarquezEsHref = getRelativeLocaleUrl(locale, '/projects/santimarquez-es/');
+---
+
+<section id="projects" class="px-6 py-20 md:py-28" aria-labelledby="projects-heading">
+  <div class="mx-auto max-w-5xl">
+    <p class="text-xs font-medium uppercase tracking-wider text-charcoal-light dark:text-slate-500">{t('section.portfolio')}</p>
+    <h2 id="projects-heading" class="mt-2 text-3xl font-bold text-charcoal dark:text-slate-100 md:text-4xl">
+      {t('projects.title')}
+    </h2>
+
+    <div class="mt-12 grid gap-8 md:grid-cols-2">
+      <ProjectCard
+        title={t('projects.alertaCoches.title')}
+        description={t('projects.alertaCoches.shortDescription')}
+        tag={getTag(t, 'projects.alertaCoches.tag')}
+        href={alertaCochesHref}
+      >
+        <div slot="visual" class="flex h-full min-h-[200px] items-center justify-center overflow-hidden bg-slate-100 dark:bg-slate-700">
+          <img src="/projects/alertaCoches-card.png" alt="AlertaCoches.es — car listing" class="h-full w-full object-cover object-center" width="640" height="360" />
+        </div>
+      </ProjectCard>
+
+      <ProjectCard
+        title={t('projects.thisSite.title')}
+        description={t('projects.thisSite.shortDescription')}
+        tag={getTag(t, 'projects.thisSite.tag')}
+        href={santimarquezEsHref}
+      >
+        <div slot="visual" class="flex h-full min-h-[200px] items-center justify-center overflow-hidden bg-slate-100 dark:bg-slate-700">
+          <img src="/projects/santimarquez-card.png" alt="Santi Márquez" class="h-full w-full object-cover object-top" width="640" height="360" />
+        </div>
+      </ProjectCard>
+    </div>
+  </div>
+</section>

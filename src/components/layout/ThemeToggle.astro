@@ -1,0 +1,40 @@
+---
+---
+
+<button
+  type="button"
+  id="theme-toggle"
+  aria-label="Toggle dark mode"
+  class="rounded-lg p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+>
+  <span class="dark:hidden" aria-hidden="true">☀</span>
+  <span class="hidden dark:inline" aria-hidden="true">☽</span>
+</button>
+<script>
+  (function () {
+    const storageKey = 'theme';
+    const root = document.documentElement;
+    function getPreferred(): 'dark' | 'light' {
+      const stored = localStorage.getItem(storageKey) as 'dark' | 'light' | null;
+      if (stored) return stored;
+      return 'light';
+    }
+    function setTheme(theme: 'dark' | 'light') {
+      root.classList.toggle('dark', theme === 'dark');
+      root.classList.add('transition-theme');
+      localStorage.setItem(storageKey, theme);
+    }
+    function initThemeToggle() {
+      setTheme(getPreferred());
+      const btn = document.getElementById('theme-toggle');
+      if (btn && !btn.hasAttribute('data-theme-bound')) {
+        btn.setAttribute('data-theme-bound', 'true');
+        btn.addEventListener('click', () => {
+          setTheme(root.classList.contains('dark') ? 'light' : 'dark');
+        });
+      }
+    }
+    initThemeToggle();
+    document.addEventListener('astro:page-load', initThemeToggle);
+  })();
+</script>

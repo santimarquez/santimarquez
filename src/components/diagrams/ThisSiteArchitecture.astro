@@ -1,0 +1,30 @@
+---
+---
+<div class="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50/50 p-4 dark:border-slate-700 dark:bg-slate-800/30" aria-hidden="true">
+  <svg viewBox="0 0 480 120" class="mx-auto h-full min-h-[100px] w-full max-w-full object-contain" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <style>{`
+        .arch-box { fill: none; stroke: #00A3B5; stroke-width: 1.5; }
+        html.dark .arch-box { stroke: #5dd4e0; }
+        .arch-text { font: 11px Inter, system-ui, sans-serif; fill: #2C3E50; }
+        html.dark .arch-text { fill: #e2e8f0; }
+        .arch-arrow { stroke: #00A3B5; stroke-width: 1.5; fill: none; marker-end: url(#arrow2); }
+        html.dark .arch-arrow { stroke: #5dd4e0; }
+      `}</style>
+      <marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+        <polygon points="0 0, 8 4, 0 8" fill="#00A3B5" />
+      </marker>
+    </defs>
+    <rect x="20" y="40" width="90" height="40" rx="6" class="arch-box" />
+    <text x="65" y="65" text-anchor="middle" class="arch-text">Astro source</text>
+    <path d="M 110 60 L 150 60" class="arch-arrow" />
+    <rect x="150" y="40" width="80" height="40" rx="6" class="arch-box" />
+    <text x="190" y="65" text-anchor="middle" class="arch-text">Build</text>
+    <path d="M 230 60 L 270 60" class="arch-arrow" />
+    <rect x="270" y="40" width="120" height="40" rx="6" class="arch-box" />
+    <text x="330" y="65" text-anchor="middle" class="arch-text">Static HTML/CSS/JS</text>
+    <path d="M 390 60 L 430 60" class="arch-arrow" />
+    <rect x="430" y="40" width="50" height="40" rx="6" class="arch-box" />
+    <text x="455" y="65" text-anchor="middle" class="arch-text">Nginx</text>
+  </svg>
+</div>

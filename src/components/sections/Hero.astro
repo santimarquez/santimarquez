@@ -1,0 +1,83 @@
+---
+import MetricCounter from '../ui/MetricCounter.astro';
+
+interface Props {
+  locale: 'en' | 'es';
+  t: (key: string) => string;
+}
+
+const { locale, t } = Astro.props;
+
+const metrics = [
+  { value: 15, suffix: '+', labelKey: 'hero.metrics.experience' },
+  { value: 5, suffix: 'M+', labelKey: 'hero.metrics.users' },
+  { value: 12, suffix: 'M+', labelKey: 'hero.metrics.ads' },
+  { value: 4, suffix: '', labelKey: 'hero.metrics.team' },
+];
+---
+
+<section class="px-4 py-16 sm:px-6 sm:py-24 md:py-32" aria-labelledby="hero-heading">
+  <div class="mx-auto grid max-w-5xl items-center gap-10 md:grid-cols-2 md:gap-16">
+    <!-- Text: left on desktop, second on mobile (order-2) -->
+    <div class="order-2 text-center md:order-none md:text-left">
+      <h1 id="hero-heading" class="text-4xl font-bold tracking-tight text-charcoal dark:text-slate-100 md:text-5xl">
+        {t('hero.headline')}
+        <br />
+        <span class="text-accent">{t('hero.headlineLine2')}</span>
+      </h1>
+      <p class="mt-6 text-lg text-charcoal-light dark:text-slate-400">
+        {t('hero.subheadline')}
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
+        <a href="#contact" class="inline-flex rounded-lg bg-charcoal px-6 py-3 text-base font-medium text-white shadow-sm transition hover:bg-charcoal-light focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 dark:bg-slate-100 dark:text-charcoal dark:hover:bg-slate-200">
+          {t('hero.contact')}
+        </a>
+        <a href="/cv/SantiMarquez-CV.pdf" download="SantiMarquez-CV.pdf" class="inline-flex items-center gap-2 rounded-lg border border-charcoal bg-white px-6 py-3 text-base font-medium text-charcoal transition hover:bg-slate-50 dark:border-slate-600 dark:bg-transparent dark:text-slate-300 dark:hover:bg-slate-800">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+          {t('hero.downloadCv')}
+        </a>
+      </div>
+      <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4 md:mt-12 md:gap-8">
+        {metrics.map((m) => (
+          <div class="metric-counter flex flex-col" data-value={m.value} data-suffix={m.suffix} data-prefix="">
+            <span class="metric-value text-3xl font-bold text-charcoal dark:text-slate-100" aria-hidden="true">0</span>
+            <span class="mt-1 text-xs font-medium uppercase tracking-wide text-charcoal-light dark:text-slate-400">{t(m.labelKey)}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    <!-- Photo: right on desktop, first on mobile (order-1) -->
+    <div class="order-1 flex justify-center md:order-none md:justify-center">
+      <div class="relative">
+        <img src="/profile.png" alt="Santi Márquez" class="h-48 w-48 rounded-full object-cover object-top shadow-lg sm:h-56 sm:w-56 md:h-72 md:w-72 md:rounded-xl md:h-80 md:w-80" width="320" height="320" />
+        <span class="absolute bottom-2 right-2 h-3 w-3 rounded-full border-2 border-white bg-green-500 dark:border-slate-900" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  import { animate } from 'motion';
+  function initMetricCounters() {
+    document.querySelectorAll('.metric-counter').forEach((el) => {
+      const valueEl = el.querySelector('.metric-value');
+      if (!valueEl) return;
+      const value = Number((el as HTMLElement).dataset.value) ?? 0;
+      const suffix = ((el as HTMLElement).dataset.suffix ?? '') as string;
+      const prefix = ((el as HTMLElement).dataset.prefix ?? '') as string;
+      valueEl.textContent = '0';
+      animate(0, value, {
+        duration: 1.2,
+        ease: 'easeOut',
+        onUpdate: (v) => {
+          valueEl.textContent = prefix + Math.round(v) + suffix;
+        },
+      });
+    });
+  }
+  function runCounters() {
+    if (document.querySelector('.metric-counter')) initMetricCounters();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', runCounters);
+  else runCounters();
+  document.addEventListener('astro:page-load', runCounters);
+</script>

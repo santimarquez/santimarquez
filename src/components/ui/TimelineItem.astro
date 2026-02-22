@@ -1,0 +1,48 @@
+---
+interface Props {
+  roleKey: string;
+  companyKey: string;
+  periodKey: string;
+  summary: string;
+  bullets: string[];
+  teamSize?: string | null;
+  scale?: string | null;
+  t: (key: string) => string;
+  isLast?: boolean;
+}
+
+const { roleKey, companyKey, periodKey, summary, bullets, teamSize, scale, t, isLast = false } = Astro.props;
+---
+
+<div class="timeline-item relative flex gap-8">
+  <div class="relative flex flex-shrink-0 flex-col items-center" aria-hidden="true">
+    <div class="z-10 h-3 w-3 rounded-full bg-accent"></div>
+    {!isLast && <div class="absolute top-4 left-1/2 h-[calc(100%+2rem)] w-0.5 -translate-x-1/2 bg-slate-200 dark:bg-slate-700"></div>}
+  </div>
+  <div class="flex-grow pb-14">
+    <details class="group/details">
+      <summary class="flex cursor-pointer list-none items-start gap-3">
+        <span class="flex-1">
+          <span class="text-sm font-bold text-charcoal dark:text-slate-100">{t(periodKey)}</span>
+          <h3 class="mt-1 text-lg font-bold text-charcoal dark:text-slate-100">{t(roleKey)} · {t(companyKey)}</h3>
+          {summary && <p class="mt-2 text-sm text-charcoal-light dark:text-slate-400">{summary}</p>}
+          {(teamSize || scale) && (
+            <p class="mt-1 text-xs text-charcoal-light dark:text-slate-500">
+              {[teamSize && `Team: ${teamSize}`, scale].filter(Boolean).join(' · ')}
+            </p>
+          )}
+        </span>
+        <span class="chevron flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 transition-[transform] duration-200 group-open/details:rotate-180 dark:bg-slate-700" aria-hidden="true">
+          <svg class="h-5 w-5 text-charcoal dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </span>
+      </summary>
+      <ul class="mt-4 space-y-2 border-l-2 border-slate-200 pl-5 dark:border-slate-700" role="list">
+        {bullets.map((b) => (
+          <li class="text-sm text-charcoal-light dark:text-slate-400">• {b}</li>
+        ))}
+      </ul>
+    </details>
+  </div>
+</div>
