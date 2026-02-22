@@ -1,0 +1,136 @@
+# Cursor Rules – Personal Leadership Site
+
+This file provides context and guidelines for Cursor AI when working with this repository.
+
+## Project Overview
+
+Production-ready personal website for an Engineering Manager: a **recruiter-optimized leadership positioning platform**. Minimalist, elegant, calm. Not a simple portfolio.
+
+**Positioning:**
+- Engineering Manager, product-minded, leadership-driven
+- Strong in system design, scaling systems, AI integration
+- Strong product thinking, proven team mentor
+- Tone: confident but human, clear, concise, no fluff
+
+**Tech Stack:**
+- **Framework:** Astro
+- **Language:** TypeScript
+- **Styling:** TailwindCSS
+- **Animations:** Motion One (modern, lightweight)
+- **i18n:** English default, Spanish supported; auto-detect + manual switch
+- **DevOps:** Docker, docker-compose; production-ready behind Traefik
+
+## Architecture Patterns
+
+### Astro
+- Use `.astro` components; prefer static where possible
+- Colocate components in `src/components/`
+- Layouts in `src/layouts/`
+- Pages in `src/pages/`
+- Content and copy in `src/content/` or i18n
+- Do not duplicate components unnecessarily across locales
+
+### TypeScript
+- Strict mode enabled
+- Type all props, exports, and function signatures
+- Prefer `interface` for public shapes
+
+### Styling (Tailwind)
+- Utility-first; avoid arbitrary values unless needed
+- Use design tokens (e.g. `neutral-*`, one subtle accent) from the design system
+- Prefer responsive utilities (`sm:`, `md:`, `lg:`)
+- Dark mode via class strategy; light default, smooth transition
+
+### Animations (Motion One)
+- Use for: hero metric counters, section reveals, hover transitions, button feedback
+- Keep animations subtle and professional; no over-animation
+
+## Coding Standards
+
+### General
+- 2-space indentation
+- camelCase for variables/functions
+- PascalCase for components
+- kebab-case for file names where conventional (e.g. `experience-timeline.astro`)
+
+### Astro/TS
+- Props validation via TypeScript interfaces
+- Use Astro’s built-in SEO and i18n patterns
+- Prefer content collections or typed i18n for structured copy
+
+### Accessibility & SEO
+- Semantic HTML; landmarks (header, main, nav, section, footer)
+- WCAG AA basics: contrast, focus, labels, alt text
+- Meta tags, canonical, OpenGraph, Person schema, sitemap, robots.txt
+- Optimize for recruiter and “engineering leadership” / “remote” search
+
+## Design System
+
+- **Visual:** Minimalist, elegant, calm; lots of whitespace; neutral palette; one subtle accent
+- **Typography:** Modern (e.g. Inter or similar)
+- **Mode:** Light default; dark mode toggle with smooth transition
+- **Microinteractions:** Hover on cards, button feedback, animated metric counters
+
+## Internationalization (i18n)
+
+- **Default:** English
+- **Supported:** Spanish (ES)
+- **Behavior:** Auto-detect browser language; fallback to English; manual EN/ES switch
+- **Structure:** Astro-compatible i18n; single set of components, no unnecessary duplication
+
+## Site Structure (Reference)
+
+1. **Hero** – Leadership headline, subheadline, 3–4 metric highlights, CTAs (Contact, Download CV)
+2. **Technical Stack** – Categories (Architecture, Backend, Frontend, DevOps, AI/Data); grid; subtle hover
+3. **Experience Timeline** – Vertical timeline; leadership impact first; collapsible per role
+4. **Projects** – e.g. AlertaCoches (with simple SVG architecture diagram), This Website (Astro/Tailwind/Motion, SEO/performance); clean SVG diagrams
+5. **Contact** – Form (name, email, message); accessible; ready for backend; success state animation
+
+## Copy Rules
+
+- Replace task descriptions with **impact statements**
+- **Quantify** whenever possible
+- Emphasize **leadership** over implementation; **systems thinking**, **team growth**, **product impact**
+- Avoid: generic buzzwords, overused leadership clichés, long paragraphs
+
+## File Locations
+
+- **Components:** `src/components/`
+- **Layouts:** `src/layouts/`
+- **Pages:** `src/pages/`
+- **Content / data:** `src/content/`
+- **Styles:** `src/styles/`
+- **i18n:** `src/i18n/`
+- **Public assets:** `public/`
+
+## DevOps
+
+- **Docker:** Dockerfile, docker-compose.yml, .dockerignore
+- **Production:** Build optimized for static export; correct port; env vars for config
+- **Deployment:** Assume Traefik as reverse proxy; no backend required for contact (form prepared for future integration)
+
+## AI Infrastructure
+
+- **Context:** `ai/context/` – PROJECT_STRUCTURE.md, RECENT_CHANGES.md, COMMON_PATTERNS.md, TECH_STACK.md, CODING_STANDARDS.md
+- **Docs:** `ai/docs/` – Feature and setup documentation
+- **Skills:** `ai/skills/` – Reusable patterns (e.g. Astro component, Tailwind section)
+- **Agents:** `ai/agents/` – Specialized workflows (e.g. documentation, review)
+- **Prompts:** `ai/prompts/` – Prompt templates
+
+## Important Rules
+
+1. Use **Astro** for routing and components; TypeScript throughout.
+2. Use **Tailwind** for styling; respect the design system (minimal, calm, neutral).
+3. Use **Motion One** for animations; keep them subtle.
+4. Support **i18n** (EN/ES) without duplicating components.
+5. Keep **accessibility** (WCAG AA) and **SEO** in mind.
+6. **Diagrams:** Clean SVG, minimalist, consistent with theme.
+7. After notable changes, update **ai/context/RECENT_CHANGES.md** and add docs in **ai/docs/** if needed.
+8. Do **not** use placeholder lorem ipsum; use structured placeholders derived from project/CV intent.
+
+## Reference Files
+
+- Project structure: `ai/context/PROJECT_STRUCTURE.md`
+- Tech stack: `ai/context/TECH_STACK.md`
+- Common patterns: `ai/context/COMMON_PATTERNS.md`
+- Coding standards: `ai/context/CODING_STANDARDS.md`
