@@ -1,0 +1,49 @@
+---
+import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+import BaseHead from '../components/layout/BaseHead.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import MobileBottomNav from '../components/layout/MobileBottomNav.astro';
+import { t, type Locale } from '../utils/i18n';
+import { buildPersonSchema } from '../utils/schema';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  canonical?: string;
+  personSchema?: boolean;
+}
+
+const { locale, title, description, canonical, personSchema = true } = Astro.props;
+const tBind = (key: string) => t(locale, key);
+const schemaJson = personSchema
+  ? buildPersonSchema({
+      locale,
+      name: 'Santi Márquez',
+      jobTitle: 'Engineering Manager / Senior Backend Engineer',
+      email: 'santymaro@gmail.com',
+      sameAs: ['https://github.com/santimarquez', 'https://www.linkedin.com/in/santiagomarquezrodriguez/'],
+    })
+  : null;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <BaseHead title={title} description={description} locale={locale} canonical={canonical} />
+    {schemaJson && (
+      <script type="application/ld+json" set:html={schemaJson} />
+    )}
+  </head>
+  <body>
+    <Header locale={locale} t={tBind} />
+    <main class="min-h-screen pt-[64px] pb-20 md:pb-0 md:pt-[72px]">
+      <slot />
+    </main>
+    <Footer t={tBind} />
+    <MobileBottomNav locale={locale} t={tBind} />
+    <ViewTransitions />
+  </body>
+</html>
