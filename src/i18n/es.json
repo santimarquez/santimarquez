@@ -1,0 +1,58 @@
+{
+  "nav": { "experience": "Experiencia", "stack": "Stack", "projects": "Proyectos", "contact": "Contacto" },
+  "footer": { "rights": "Todos los derechos reservados." },
+  "section": {
+    "capabilities": "CAPACIDADES",
+    "journey": "TRAYECTORIA",
+    "portfolio": "PROYECTOS",
+    "connect": "CONECTAR"
+  },
+  "hero": {
+    "headline": "Líder de ingeniería.",
+    "headlineLine2": "Arquitecto de sistemas.",
+    "subheadline": "Construyendo sistemas distribuidos escalables y culturas de ingeniería de alto rendimiento. Orientado a producto, liderazgo, 100% remoto.",
+    "contact": "Contacto",
+    "downloadCv": "Descargar CV",
+    "metrics": {
+      "experience": "AÑOS DE EXPERIENCIA",
+      "users": "USUARIOS PLATAFORMA",
+      "ads": "ANUNCIOS GESTIONADOS",
+      "team": "EQUIPO LIDERADO"
+    }
+  },
+  "stack": {
+    "title": "Stack técnico",
+    "architecture": "Arquitectura y diseño de sistemas",
+    "backend": "Backend",
+    "frontend": "Frontend",
+    "devops": "DevOps",
+    "data": "IA / Datos"
+  },
+  "experience": {
+    "title": "Cronología profesional",
+    "alertaCoches": { "role": "Liderazgo técnico y producto", "company": "AlertaCoches.es", "period": "Remoto · 5 años", "summary": "Agregador de anuncios de vehículos. Equipo de 4. Roadmap, mentoring, guía full-stack." },
+    "internations": { "role": "Senior Backend Engineer", "company": "InterNations GmbH", "period": "Remoto · 3,5 años", "summary": "Comunidad global de expatriados, +5M usuarios. Migración a SPA, arquitectura Strategy, despliegues." },
+    "enterticket": { "role": "Analista de software y Senior Backend Engineer", "company": "Enterticket", "period": "Remoto · 1 año", "summary": "Plataforma de ticketing en España. Stack AWS, comunicación con clientes (Chile, EE. UU.)." },
+    "gtmotive": { "role": "Fullstack Engineer", "company": "GtMotive", "period": "Híbrido · 6 años", "summary": "Software automotriz global. Proyecto Colossus, Laravel + MySQL, integraciones Oracle." }
+  },
+  "projects": {
+    "title": "Proyectos destacados",
+    "alertaCoches": { "title": "AlertaCoches.es",
+      "shortDescription": "Agregador de anuncios de vehículos. Escalabilidad, liderazgo de equipo.",
+      "description": "Agregador de anuncios de coches con 38K usuarios mensuales, 11M anuncios y 750K activos. Lideré un equipo de 4; roadmap, estabilidad y escalabilidad.", "architecture": "Arquitectura del sistema", "scalability": "Decisiones de escalabilidad", "techStack": "Stack técnico", "outcome": "Resultado de negocio", "tag": "Escalabilidad" },
+    "thisSite": { "title": "santimarquez.es", "shortDescription": "Este sitio. Astro, Tailwind, Motion One. Posicionamiento de liderazgo.", "description": "Posicionamiento de liderazgo minimalista. Astro (velocidad y SEO), Tailwind (consistencia), Motion One (animaciones ligeras).", "tag": "Rendimiento" }
+  },
+  "contact": {
+    "title": "Trabajemos juntos.",
+    "subtext": "Abierto a roles de asesoría estratégica y oportunidades de liderazgo.",
+    "name": "NOMBRE COMPLETO",
+    "namePlaceholder": "Juan García",
+    "email": "CORREO ELECTRÓNICO",
+    "emailPlaceholder": "juan@ejemplo.com",
+    "message": "MENSAJE",
+    "messagePlaceholder": "Tu mensaje...",
+    "send": "ENVIAR MENSAJE",
+    "success": "Mensaje enviado. Te responderé pronto.",
+    "error": "Completa todos los campos correctamente."
+  }
+}

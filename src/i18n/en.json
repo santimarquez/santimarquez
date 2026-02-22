@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "experience": "Experience",
+    "stack": "Stack",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "section": {
+    "capabilities": "CAPABILITIES",
+    "journey": "JOURNEY",
+    "portfolio": "PORTFOLIO",
+    "connect": "CONNECT"
+  },
+  "hero": {
+    "headline": "Engineering Leader.",
+    "headlineLine2": "System Architect.",
+    "subheadline": "Building scalable distributed systems and high-performing engineering cultures. Product-minded, leadership-driven, 100% remote.",
+    "contact": "Contact",
+    "downloadCv": "Download CV",
+    "metrics": {
+      "experience": "YEARS EXPERIENCE",
+      "users": "PLATFORM USERS",
+      "ads": "ADS MANAGED",
+      "team": "TEAM LED"
+    }
+  },
+  "stack": {
+    "title": "Technical Stack",
+    "architecture": "Architecture & System Design",
+    "backend": "Backend",
+    "frontend": "Frontend",
+    "devops": "DevOps",
+    "data": "AI / Data"
+  },
+  "experience": {
+    "title": "Experience Timeline",
+    "alertaCoches": {
+      "role": "Technical Lead & Product",
+      "company": "AlertaCoches.es",
+      "period": "Remote · 5 years",
+      "summary": "Secondhand vehicle ads aggregator. Team of 4. Roadmap ownership, mentoring, full-stack guidance."
+    },
+    "internations": {
+      "role": "Senior Backend Engineer",
+      "company": "InterNations GmbH",
+      "period": "Remote · 3.5 years",
+      "summary": "Global expat community, 5M+ users. Migration to SPA, Strategy-based architecture, deployment ownership."
+    },
+    "enterticket": {
+      "role": "Software Analyst & Senior Backend Engineer",
+      "company": "Enterticket",
+      "period": "Remote · 1 year",
+      "summary": "Leading ticketing platform in Spain. AWS stack, client/partner communication (Chile, US)."
+    },
+    "gtmotive": {
+      "role": "Fullstack Engineer",
+      "company": "GtMotive",
+      "period": "Hybrid · 6 years",
+      "summary": "Global automotive software. Colossus project ownership, Laravel + MySQL, Oracle integrations."
+    }
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "alertaCoches": {
+      "title": "AlertaCoches.es",
+      "shortDescription": "Secondhand vehicle ads aggregator. Scale, team leadership, full-stack ownership.",
+      "description": "Secondhand vehicle ads aggregator serving 38K monthly users with 11M total ads and 750K active. Led team of 4; owned roadmap, backend stability, and scalability.",
+      "architecture": "System architecture",
+      "scalability": "Scalability decisions",
+      "techStack": "Tech stack",
+      "outcome": "Business outcome"
+    },
+    "thisSite": {
+      "title": "santimarquez.es",
+      "shortDescription": "This site. Astro, Tailwind, Motion One. Recruiter-optimized leadership positioning.",
+      "description": "Minimal, recruiter-optimized leadership positioning. Astro for speed and SEO, Tailwind for consistency, Motion One for lightweight animations."
+    }
+  },
+  "contact": {
+    "title": "Let's work together.",
+    "subtext": "Currently open to strategic advisory roles and leadership opportunities.",
+    "name": "FULL NAME",
+    "namePlaceholder": "John Doe",
+    "email": "EMAIL ADDRESS",
+    "emailPlaceholder": "john@example.com",
+    "message": "MESSAGE",
+    "messagePlaceholder": "Your message...",
+    "send": "SEND MESSAGE",
+    "success": "Message sent. I'll get back to you soon.",
+    "error": "Please fill all fields correctly."
+  }
+}
