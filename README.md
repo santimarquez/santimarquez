@@ -1,0 +1,78 @@
+# Santi Márquez — Personal Website
+
+Production-ready, recruiter-optimized personal website for an Engineering Manager. Built with Astro, TypeScript, TailwindCSS, and Motion One. EN/ES i18n, dark mode, SEO, and Docker-ready for Traefik.
+
+## Tech stack
+
+- **Framework:** Astro (static)
+- **Language:** TypeScript
+- **Styling:** TailwindCSS
+- **Animations:** Motion One
+- **i18n:** Astro built-in (EN/ES), locale detection, manual switcher
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:4321](http://localhost:4321). Root `/` redirects to `/en` or `/es` based on browser language (or stored preference).
+
+## Production build
+
+```bash
+npm run build
+```
+
+Output is in `dist/`. Preview with:
+
+```bash
+npm run preview
+```
+
+## Docker
+
+Build and run:
+
+```bash
+docker compose up --build
+```
+
+Site is served on [http://localhost:8080](http://localhost:8080) (port 80 inside the container).
+
+### Deploy behind Traefik
+
+1. Uncomment the Traefik labels in `docker-compose.yml` and set your domain in `Host(...)`.
+2. Ensure the service is on the same network as Traefik.
+3. Run `docker compose up -d`.
+
+The container exposes port 80. No reverse proxy config is needed inside the container; Traefik handles HTTPS and routing.
+
+## Project structure
+
+```
+src/
+  components/   layout, sections, ui, diagrams
+  data/         techStack, experience
+  i18n/         en.json, es.json
+  layouts/      MainLayout.astro
+  pages/        index (redirect), en/index, es/index
+  styles/       global.css
+  utils/        i18n, schema (Person JSON-LD)
+public/         favicon, robots.txt, sitemap.xml, cv/
+```
+
+## SEO
+
+- Meta tags, canonical URL, Open Graph (add `public/og-image.png` 1200×630 for social previews).
+- JSON-LD Person schema in layout.
+- Static `public/sitemap.xml` and `public/robots.txt`.
+
+## CV
+
+Place your PDF at `public/cv/SantiMarquez-CV.pdf` for the “Download CV” button.
+
+## Environment
+
+Optional: copy `.env.example` to `.env` and set `SITE_URL` if you need to override the site URL (e.g. for staging).

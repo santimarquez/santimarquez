@@ -1,0 +1,24 @@
+services:
+  santimarquez:
+    container_name: santimarquez
+    build: .
+    networks:
+      - default
+      - inverseproxy_shared
+    labels:
+      # Traefik base config
+      - "traefik.enable=true"
+      - "traefik.docker.network=inverseproxy_shared"
+      # Santimarquez.es - Port:80 (no host port: Traefik routes by Host, no collision)
+      #  - Service
+      - "traefik.http.services.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}.loadbalancer.server.port=${TRAEFIK_SANTIMARQUEZ_PORT}"
+      #  - HTTPS router
+      - "traefik.http.routers.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}-https.entrypoints=websecure"
+      - "traefik.http.routers.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}-https.rule=Host(`${TRAEFIK_SANTIMARQUEZ_URL}`)"
+      - "traefik.http.routers.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}-https.tls=true"
+      - "traefik.http.routers.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}-https.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}-https.service=${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}"
+
+networks:
+  inverseproxy_shared:
+    external: true
