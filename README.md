@@ -77,4 +77,4 @@ Place your PDF at `public/cv/SantiMarquez-CV.pdf` for the “Download CV” butt
 
 Optional: copy `.env.example` to `.env` and set `SITE_URL` if you need to override the site URL (e.g. for staging).
 
-**Contact form (production):** For the contact form to send email when running in Docker/production, pass `MAIL_HOST`, `MAIL_USERNAME`, and `MAIL_PASSWORD` (and optionally `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME`) to the container, e.g. via `environment` or `env_file` in docker-compose.
+**Contact form (production):** For the contact form to send email when running in Docker/production, pass `MAIL_HOST`, `MAIL_USERNAME`, and `MAIL_PASSWORD` (and optionally `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME`) to the container. The repo’s `docker-compose.yml` uses `env_file: .env`, so ensure `.env` exists on the host where you run `docker compose` and contains those variables. **Use no leading spaces in variable names** (e.g. `MAIL_HOST=...` not ` MAIL_HOST=...`), or some parsers will use the space as part of the key.
