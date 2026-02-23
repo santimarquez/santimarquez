@@ -56,28 +56,57 @@ const metrics = [
   </div>
 </section>
 <script>
-  import { animate } from 'motion';
+  function easeOutTween(t: number): number {
+    return 1 - (1 - t) * (1 - t);
+  }
+  function animateCounter(
+    valueEl: Element,
+    target: number,
+    prefix: string,
+    suffix: string,
+    durationMs: number
+  ) {
+    const start = performance.now();
+    function tick(now: number) {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / durationMs, 1);
+      const eased = easeOutTween(t);
+      const current = Math.round(eased * target);
+      (valueEl as HTMLElement).textContent = prefix + current + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
   function initMetricCounters() {
-    document.querySelectorAll('.metric-counter').forEach((el) => {
-      const valueEl = el.querySelector('.metric-value');
+    const root = document.body;
+    if (!root) return;
+    root.querySelectorAll('.metric-counter').forEach((el) => {
+      const valueEl = (el as HTMLElement).querySelector('.metric-value');
       if (!valueEl) return;
-      const value = Number((el as HTMLElement).dataset.value) ?? 0;
-      const suffix = ((el as HTMLElement).dataset.suffix ?? '') as string;
-      const prefix = ((el as HTMLElement).dataset.prefix ?? '') as string;
-      valueEl.textContent = '0';
-      animate(0, value, {
-        duration: 1.2,
-        ease: 'easeOut',
-        onUpdate: (v) => {
-          valueEl.textContent = prefix + Math.round(v) + suffix;
-        },
-      });
+      const raw = (el as HTMLElement).getAttribute('data-value');
+      const value = raw !== null && raw !== '' ? Number(raw) : 0;
+      const suffix = (el as HTMLElement).getAttribute('data-suffix') ?? '';
+      const prefix = (el as HTMLElement).getAttribute('data-prefix') ?? '';
+      if (value <= 0) {
+        (valueEl as HTMLElement).textContent = prefix + '0' + suffix;
+        return;
+      }
+      (valueEl as HTMLElement).textContent = prefix + '0' + suffix;
+      animateCounter(valueEl, value, prefix, suffix, 1200);
     });
   }
   function runCounters() {
-    if (document.querySelector('.metric-counter')) initMetricCounters();
+    const run = () => {
+      if (document.body?.querySelector('.metric-counter')) initMetricCounters();
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', run);
+    } else {
+      run();
+    }
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', runCounters);
-  else runCounters();
-  document.addEventListener('astro:page-load', runCounters);
+  runCounters();
+  document.addEventListener('astro:page-load', () => {
+    if (document.body?.querySelector('.metric-counter')) initMetricCounters();
+  });
 </script>

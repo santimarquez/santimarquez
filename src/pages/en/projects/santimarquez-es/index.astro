@@ -7,10 +7,20 @@ const locale = 'en';
 const tBind = (key: string) => t(locale, key);
 const backHref = getRelativeLocaleUrl(locale, '/');
 
-const stackPills = ['Astro 4', 'TypeScript', 'TailwindCSS', 'Motion One', 'View Transitions', 'i18n (EN/ES)', 'Docker', 'Nginx'];
+const stackPills = ['Astro 4', 'TypeScript', 'TailwindCSS', 'Motion One', 'View Transitions', 'i18n (EN/ES)', 'Docker', 'Nginx', 'Cursor'];
+
+const aiFlowDiagram = `flowchart LR
+  Cursor[Cursor] --> Rules[.cursorrules / CURSOR.md]
+  Rules --> Context[ai/context]
+  Context --> Skills[ai/skills]
+  Context --> Agents[ai/agents]
+  Context --> Prompts[ai/prompts]
+  Skills --> Out[Consistent code and docs]
+  Agents --> Out
+  Prompts --> Out`;
 ---
 
-<MainLayout locale={locale} title="santimarquez.es — Santi Márquez" description="This site. Astro, Tailwind, Motion One. Recruiter-optimized leadership positioning.">
+<MainLayout locale={locale} title="santimarquez.es — Santi Márquez" description="This site. AI-augmented development, Cursor, context, skills, agents, prompts. Recruiter-optimized leadership positioning.">
   <article class="px-4 py-12 sm:px-6 sm:py-16 md:py-24">
     <div class="mx-auto max-w-4xl">
       <a href={backHref} class="inline-flex items-center gap-2 text-sm font-medium text-charcoal-light hover:text-accent dark:text-slate-400 dark:hover:text-accent">
@@ -23,40 +33,52 @@ const stackPills = ['Astro 4', 'TypeScript', 'TailwindCSS', 'Motion One', 'View 
         <p class="mt-4 text-lg leading-relaxed text-charcoal-light dark:text-slate-400">{tBind('projects.thisSite.description')}</p>
       </header>
 
-      <!-- Overview -->
+      <!-- Lead: AI-first -->
       <section class="mt-12">
-        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Overview</h2>
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">AI-augmented development</h2>
         <p class="mt-3 text-charcoal-light dark:text-slate-400">
-          Minimal, recruiter-optimized personal site. Static generation with Astro, Tailwind for styling, Motion One for lightweight animations, 
-          and built-in i18n (EN/ES) with locale detection. SEO, Person schema, sitemap, and Docker + Nginx for production.
+          This site is built and maintained with AI-augmented development in mind. The repo is structured so that an AI assistant (e.g. Cursor) can onboard quickly, follow consistent patterns, and run defined workflows for documentation, code review, and SEO. That structure is a deliberate showcase of how to leverage LLMs for faster, consistent output without sacrificing quality—directly applicable to product teams and technical leadership.
         </p>
       </section>
 
-      <!-- Placeholder for architecture / pipeline diagram -->
+      <!-- AI infrastructure -->
       <section class="mt-12">
-        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Build & deploy</h2>
-        <div class="mt-4 min-h-[200px] rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 dark:border-slate-700 dark:bg-slate-800/30 flex items-center justify-center">
-          <p class="text-sm text-charcoal-light dark:text-slate-500">Visual schema placeholder — add pipeline diagram in a following step</p>
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">AI infrastructure: how the repo is built for AI</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          <strong>Context (ai/context/):</strong> Living project knowledge: PROJECT_STRUCTURE (where files go), RECENT_CHANGES (latest decisions), COMMON_PATTERNS (Astro, Tailwind, Motion One), TECH_STACK, CODING_STANDARDS. Single source of truth so any AI or developer can align with conventions.
+        </p>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          <strong>Skills (ai/skills/):</strong> Reusable patterns for common tasks—Astro components, Tailwind sections, Motion One usage, i18n, SVG diagrams. Referenced in chat so generations stay on-brand and consistent.
+        </p>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          <strong>Agents (ai/agents/):</strong> Multi-step workflows (e.g. documentation, code review, SEO checks) that Cursor can run end-to-end.
+        </p>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          <strong>Prompts (ai/prompts/):</strong> Templates for code review, copy transformation (CV to impact statements), documentation, and diagram generation.
+        </p>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          <strong>Cursor integration:</strong> <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">.cursorrules</code> and CURSOR.md (and CURSOR_QUICK_START.md) are loaded by Cursor; they define stack, design system, i18n, file locations, and example prompts. The ai/ folder is the extended context for structure and patterns.
+        </p>
+
+        <div class="mt-8 overflow-x-auto rounded-xl border border-slate-200 bg-slate-50/50 p-4 dark:border-slate-700 dark:bg-slate-800/30">
+          <pre class="mermaid text-sm">{aiFlowDiagram}</pre>
         </div>
       </section>
 
-      <!-- Why this stack -->
+      <!-- Capabilities this demonstrates -->
       <section class="mt-12">
-        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Why this stack</h2>
-        <ul class="mt-3 space-y-2 text-charcoal-light dark:text-slate-400">
-          <li><strong>Astro:</strong> Fast static output, minimal JS, great SEO and performance.</li>
-          <li><strong>Tailwind:</strong> Utility-first styling and consistent design tokens.</li>
-          <li><strong>Motion One:</strong> Lightweight animations for metrics and microinteractions.</li>
-          <li><strong>Docker + Nginx:</strong> Production-ready image, Traefik-friendly.</li>
-        </ul>
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Capabilities this demonstrates</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          Structuring project knowledge for LLMs (context, conventions, patterns); prompt engineering (skills and prompt templates that yield predictable, on-brand output); workflow design (agents for documentation and quality checks); reproducible quality (a11y, SEO, design system) through AI-assisted flows. These are the same capabilities needed to introduce or scale AI-augmented development in a team or product—onboarding, consistency, and guardrails.
+        </p>
       </section>
 
-      <!-- Placeholder for visual schema -->
+      <!-- What the site delivers -->
       <section class="mt-12">
-        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Site structure</h2>
-        <div class="mt-4 min-h-[180px] rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 dark:border-slate-700 dark:bg-slate-800/30 flex items-center justify-center">
-          <p class="text-sm text-charcoal-light dark:text-slate-500">Visual schema placeholder</p>
-        </div>
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">What the site delivers</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          The output is a production-ready static site (Astro, TypeScript, Tailwind, Motion One, i18n EN/ES, Docker, Nginx, Traefik-ready). SEO, Person schema, sitemap, WCAG-oriented a11y. The stack is chosen for performance and simplicity; the AI layer is what keeps development and maintenance efficient and consistent.
+        </p>
       </section>
 
       <!-- Tech stack pills -->
@@ -68,6 +90,29 @@ const stackPills = ['Astro 4', 'TypeScript', 'TailwindCSS', 'Motion One', 'View 
           ))}
         </div>
       </section>
+
+      <!-- Outcome -->
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Outcome</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          This repo doubles as a reference for structuring a project for AI-augmented development—clear context, reusable skills, and defined workflows that keep quality and consistency high while moving faster.
+        </p>
+      </section>
     </div>
   </article>
+  <script>
+    async function runMermaid() {
+      try {
+        const mermaid = (await import('mermaid')).default;
+        mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+        await mermaid.run({ querySelector: '.mermaid', suppressErrors: true });
+      } catch (_) {}
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runMermaid);
+    } else {
+      runMermaid();
+    }
+    document.addEventListener('astro:page-load', runMermaid);
+  </script>
 </MainLayout>

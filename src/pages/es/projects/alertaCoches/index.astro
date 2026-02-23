@@ -6,11 +6,77 @@ import { t } from '../../../../utils/i18n';
 const locale = 'es';
 const tBind = (key: string) => t(locale, key);
 const backHref = getRelativeLocaleUrl(locale, '/');
+const siteUrl = 'https://alertacoches.es';
 
-const stackPills = ['Laravel 9', 'Vue 3', 'Vite', 'MongoDB', 'MySQL', 'RabbitMQ', 'Node.js', 'TypeScript', 'Docker', 'Bitbucket Pipelines', 'Matomo', 'Metabase'];
+const stackPills = ['Laravel 9', 'Vue 3', 'Vite', 'MongoDB', 'MySQL', 'RabbitMQ', 'Node.js', 'TypeScript', 'Docker', 'Rancher', 'Bitbucket Pipelines', 'Matomo', 'Metabase', 'Airflow'];
+
+const desktopDiagram = `flowchart TB
+  subgraph rancher [Rancher orchestration]
+    subgraph web [Web repo]
+      API[Laravel API]
+      Vue[Vue SPA]
+      CM[Content Manager]
+      Cons[Laravel queue consumers]
+    end
+    subgraph worker [Worker repo]
+      I[Importers per source]
+      S[SaveAdSubscriber]
+    end
+    subgraph airflow [Airflow repo]
+      DAG1[migrate_ads_to_mysql]
+      DAG2[calculate_vehicle_prices]
+    end
+    subgraph rabbitmq [RabbitMQ]
+      Q_save[ad.save]
+      Q_alert[alert.new-ad]
+      Q_price[ad.price-change]
+    end
+    subgraph data [Data]
+      Mongo[(MongoDB)]
+      MySQL[(MySQL)]
+    end
+    Metabase[Metabase]
+  end
+  subgraph sources [Marketplaces]
+    M1[Milanuncios]
+    M2[Wallapop]
+    M3[Others]
+  end
+  CM -->|base data: sources, filters, listings| API
+  API -->|endpoints for workers| I
+  sources --> I
+  I -->|SaveAdMessage| Q_save
+  Q_save --> S
+  S --> Mongo
+  S -->|NewAdAlertMessage| Q_alert
+  S -->|PriceChangeMessage| Q_price
+  Q_alert --> Cons
+  Q_price --> Cons
+  Cons -->|match alerts, send email| API
+  API --> Vue
+  Mongo --> DAG1
+  DAG1 --> MySQL
+  DAG2 --> MySQL
+  MySQL --> Metabase
+  Mongo --> Metabase`;
+
+const mobileDiagram = `flowchart TB
+  M[Marketplaces] --> W[Worker importers]
+  CM[Content Manager] --> API[Laravel API]
+  API --> W
+  W --> RMQ[RabbitMQ ad.save]
+  RMQ --> S[SaveAdSubscriber]
+  S --> Mongo[(MongoDB)]
+  S --> RMQ2[RabbitMQ alert/price]
+  RMQ2 --> Cons[Laravel consumers]
+  Cons --> API
+  API --> Vue[Vue SPA]
+  Mongo --> AF[Airflow]
+  AF --> MySQL[(MySQL)]
+  MySQL --> MB[Metabase]`;
 ---
 
-<MainLayout locale={locale} title="AlertaCoches.es — Santi Márquez" description="Agregador de anuncios de vehículos. Escalabilidad, liderazgo de equipo.">
+<MainLayout locale={locale} title="AlertaCoches.es — Santi Márquez" description="Agregador de anuncios de vehículos. Escalabilidad, liderazgo de equipo, Laravel, Node, RabbitMQ, Airflow, Rancher.">
   <article class="px-4 py-12 sm:px-6 sm:py-16 md:py-24">
     <div class="mx-auto max-w-4xl">
       <a href={backHref} class="inline-flex items-center gap-2 text-sm font-medium text-charcoal-light hover:text-accent dark:text-slate-400 dark:hover:text-accent">
@@ -19,41 +85,87 @@ const stackPills = ['Laravel 9', 'Vue 3', 'Vite', 'MongoDB', 'MySQL', 'RabbitMQ'
       </a>
 
       <header class="mt-8">
-        <h1 class="text-3xl font-bold text-charcoal dark:text-slate-100 md:text-4xl">AlertaCoches.es</h1>
+        <h1 class="text-3xl font-bold text-charcoal dark:text-slate-100 md:text-4xl">
+          <a href={siteUrl} target="_blank" rel="noopener noreferrer" class="text-charcoal hover:text-accent dark:text-slate-100 dark:hover:text-accent">AlertaCoches.es</a>
+        </h1>
         <p class="mt-4 text-lg leading-relaxed text-charcoal-light dark:text-slate-400">{tBind('projects.alertaCoches.description')}</p>
       </header>
 
+      <!-- Lead: product, human-readable -->
       <section class="mt-12">
-        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Resumen</h2>
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Qué hace</h2>
         <p class="mt-3 text-charcoal-light dark:text-slate-400">
-          Agregador de anuncios de vehículos de segunda mano con API Laravel y SPA Vue, workers en Node.js para ingesta y RabbitMQ para eventos. 
-          Los anuncios se almacenan en MongoDB; usuarios y negocio en MySQL. Una landing en Laravel Blade dirige el tráfico a la app.
+          AlertaCoches está pensado para quien quiere seguir el mercado español de coches de segunda mano y nuevos sin estar refrescando portales constantemente. En lugar de revisar Milanuncios, Wallapop, Autoscout y otros a mano, defines filtros—marca, modelo, año, precio, provincia, combustible, kilometraje—y recibes notificaciones automáticas cuando salen anuncios que encajan. Así ahorras tiempo y reduces la probabilidad de perderte buenas ofertas, que a menudo se venden en horas.
+        </p>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          Es útil si buscas un coche concreto y no quieres perderte ningún anuncio, si quieres ahorrar tiempo y adelantarte a quien sigue navegando los portales manualmente, o si prefieres una herramienta que acote la búsqueda en lugar de scroll entre cientos de anuncios irrelevantes.
         </p>
       </section>
 
+      <!-- What we built -->
       <section class="mt-12">
-        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Arquitectura</h2>
-        <div class="mt-4 min-h-[240px] rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 dark:border-slate-700 dark:bg-slate-800/30 flex items-center justify-center">
-          <p class="text-sm text-charcoal-light dark:text-slate-500">Espacio para esquema visual — añadir diagrama en un paso posterior</p>
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Qué construimos</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          Un único sitio para buscar en los principales portales españoles (Milanuncios, Wallapop, AutoHero, Autocasion, Clicars, Autoscout, Coches.com, Motor.es, Rattix y otros): una sola interfaz, filtros avanzados y búsquedas guardadas. Los usuarios crean alertas y reciben notificación por email u otros canales cuando aparecen anuncios que coinciden. Para profesionales, añadimos un gestor de contenidos y un panel para gestionar anuncios y visibilidad en las plataformas.
+        </p>
+      </section>
+
+      <!-- System architecture: three repositories + diagrams -->
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Arquitectura del sistema: tres repositorios</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          La plataforma se reparte en tres codebases, con RabbitMQ como columna vertebral de mensajería y todo orquestado en Rancher (Docker en 6 VPS Hetzner).
+        </p>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          El repo <strong>web</strong> contiene la API Laravel (MySQL para usuarios y datos de negocio, MongoDB para búsqueda de anuncios), la SPA en Vue 3 y un Content Manager en Laravel. El Content Manager mantiene los datos base—fuentes, metadatos de filtros, listados de negocio—que la API usa para construir los endpoints que consumen los workers. Los consumidores de colas Laravel se suscriben a las colas de RabbitMQ (<code class="rounded bg-slate-200 px-1 dark:bg-slate-700">alert.new-ad</code>, <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">ad.price-change</code>, etc.). Esos mensajes los publica el SaveAdSubscriber del worker tras escribir o actualizar anuncios; los consumidores Laravel hacen el matching con las alertas de usuario y envían email y notificaciones en la app. Metabase lee de MySQL y MongoDB para análisis y dashboards.
+        </p>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          El repo <strong>worker</strong> es Node.js/TypeScript: un importer por portal (Wallapop, Autoscout, Coches.com, AutoHero, Clicars, Motor.es, Rattix, etc.). Cada importer obtiene la configuración de búsqueda y los endpoints de fuente desde la API web (datos que vienen del Content Manager), descarga anuncios del portal y publica un <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">SaveAdMessage</code> en la cola RabbitMQ <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">ad.save</code>. El SaveAdSubscriber consume <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">ad.save</code>, escribe o actualiza anuncios en MongoDB y publica NewAdAlertMessage, PriceChangeMessage, ReactivatedAdMessage y NewImageMessage en RabbitMQ para que los consumidores Laravel envíen las notificaciones.
+        </p>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          El repo <strong>Airflow</strong> ejecuta pipelines programados en Rancher: migración diaria de anuncios a MySQL y cálculo semanal de precios de vehículos. Los resultados alimentan MySQL y los datos que Metabase usa para analítica.
+        </p>
+
+        <!-- Desktop: full diagram -->
+        <div class="mt-8 hidden overflow-x-auto rounded-xl border border-slate-200 bg-slate-50/50 p-4 dark:border-slate-700 dark:bg-slate-800/30 md:block">
+          <pre class="mermaid text-sm">{desktopDiagram}</pre>
+        </div>
+
+        <!-- Mobile: simplified diagram -->
+        <div class="mt-8 overflow-x-auto rounded-xl border border-slate-200 bg-slate-50/50 p-4 md:hidden dark:border-slate-700 dark:bg-slate-800/30">
+          <pre class="mermaid text-xs">{mobileDiagram}</pre>
+        </div>
+
+        <!-- Mobile: step list -->
+        <div class="mt-6 rounded-xl border border-slate-200 bg-slate-50/50 p-4 md:hidden dark:border-slate-700 dark:bg-slate-800/30">
+          <p class="text-xs font-medium uppercase tracking-wider text-charcoal-light dark:text-slate-500">Flujo</p>
+          <ol class="mt-2 list-inside list-decimal space-y-1.5 text-sm text-charcoal-light dark:text-slate-400">
+            <li>Portales → importers del Worker (config desde API / Content Manager).</li>
+            <li>Worker → RabbitMQ <code class="rounded bg-slate-200 px-0.5 dark:bg-slate-700">ad.save</code> → SaveAdSubscriber → MongoDB.</li>
+            <li>SaveAdSubscriber publica <code class="rounded bg-slate-200 px-0.5 dark:bg-slate-700">alert.new-ad</code> / <code class="rounded bg-slate-200 px-0.5 dark:bg-slate-700">ad.price-change</code> → consumidores Laravel → email.</li>
+            <li>Airflow: migración diaria a MySQL, cálculo semanal de precios.</li>
+            <li>Metabase: analítica sobre MySQL y MongoDB. Todo orquestado en Rancher.</li>
+          </ol>
         </div>
       </section>
 
+      <!-- Data and event flow -->
       <section class="mt-12">
-        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Flujo de datos</h2>
-        <ul class="mt-3 space-y-2 text-charcoal-light dark:text-slate-400">
-          <li><strong>Ingesta:</strong> Fuentes externas → importers Node → RabbitMQ <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">ad.save</code> → worker save-ad → MongoDB.</li>
-          <li><strong>Notificaciones:</strong> Worker publica en <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">alert.new-ad</code>, <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">ad.price-change</code>, etc. → consumidores Laravel → email/notificaciones.</li>
-          <li><strong>Búsqueda:</strong> Frontend Vue → API Laravel → MongoDB (anuncios, búsquedas) y MySQL (usuarios, negocio).</li>
-        </ul>
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Flujo de datos y eventos</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          Los anuncios entran desde cada portal al importer correspondiente del worker, luego a la cola <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">ad.save</code> de RabbitMQ. El SaveAdSubscriber consume esos mensajes, persiste o actualiza anuncios en MongoDB y publica eventos de anuncios nuevos, cambios de precio, reactivaciones e imágenes nuevas. Los consumidores Laravel leen esos eventos desde RabbitMQ, los cruzan con las alertas de usuario y disparan email y notificaciones en la app. La API Laravel sirve búsqueda y listados desde MongoDB y MySQL. Airflow ejecuta trabajos por lotes de migración y precios según cron, y Metabase usa los datos resultantes para reporting.
+        </p>
       </section>
 
+      <!-- Scale and ownership -->
       <section class="mt-12">
-        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Diseño del sistema</h2>
-        <div class="mt-4 min-h-[200px] rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 dark:border-slate-700 dark:bg-slate-800/30 flex items-center justify-center">
-          <p class="text-sm text-charcoal-light dark:text-slate-500">Espacio para esquema visual</p>
-        </div>
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Escala y responsabilidad</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          Lideré un equipo de cuatro personas y asumí el roadmap de producto y la dirección técnica. El stack es poliglota por diseño: Laravel y MySQL para el CMS y datos de negocio, Node.js para los workers de ingesta y sus APIs, MongoDB para el almacenamiento masivo de anuncios (millones de documentos), RabbitMQ para pipelines desacoplados de procesamiento y notificaciones, y Airflow para trabajos de datos programados. Usamos Matomo y Metabase para analítica, caché para listados y filtros, y Docker en Rancher sobre seis VPS Hetzner, con CI/CD vía Bitbucket. El sistema está pensado para alta disponibilidad, seguridad y rendimiento.
+        </p>
       </section>
 
+      <!-- Tech stack pills -->
       <section class="mt-12">
         <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Stack técnico</h2>
         <div class="mt-4 flex flex-wrap gap-2">
@@ -63,10 +175,34 @@ const stackPills = ['Laravel 9', 'Vue 3', 'Vite', 'MongoDB', 'MySQL', 'RabbitMQ'
         </div>
       </section>
 
+      <!-- Outcome -->
       <section class="mt-12">
-        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Resultados</h2>
-        <p class="mt-3 text-charcoal-light dark:text-slate-400">12M+ anuncios, 750K activos, 38K MAU, 1.1K nuevas altas/mes. Alta disponibilidad, seguridad y rendimiento para búsqueda y gestión de anuncios.</p>
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Resultado</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          12M+ anuncios, 750K listados activos, 38K MAU, 1.1K nuevas altas al mes. La plataforma funciona con alta disponibilidad, seguridad y rendimiento para búsqueda de anuncios, alertas y gestión de negocio.
+        </p>
+        <p class="mt-3">
+          <a href={siteUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-charcoal bg-white px-4 py-2 text-sm font-medium text-charcoal transition hover:bg-slate-50 dark:border-slate-600 dark:bg-transparent dark:text-slate-300 dark:hover:bg-slate-800">
+            Visitar AlertaCoches.es
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          </a>
+        </p>
       </section>
     </div>
   </article>
+  <script>
+    async function runMermaid() {
+      try {
+        const mermaid = (await import('mermaid')).default;
+        mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+        await mermaid.run({ querySelector: '.mermaid', suppressErrors: true });
+      } catch (_) {}
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runMermaid);
+    } else {
+      runMermaid();
+    }
+    document.addEventListener('astro:page-load', runMermaid);
+  </script>
 </MainLayout>

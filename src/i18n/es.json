@@ -38,9 +38,9 @@
   "projects": {
     "title": "Proyectos destacados",
     "alertaCoches": { "title": "AlertaCoches.es",
-      "shortDescription": "Agregador de anuncios de vehículos. Escalabilidad, liderazgo de equipo.",
+      "shortDescription": "Arquitectura en tres repos (web, worker, Airflow), event-driven con RabbitMQ. Diseño de sistema y escalabilidad para 12M+ anuncios.",
       "description": "Agregador de anuncios de coches con 38K usuarios mensuales, 11M anuncios y 750K activos. Lideré un equipo de 4; roadmap, estabilidad y escalabilidad.", "architecture": "Arquitectura del sistema", "scalability": "Decisiones de escalabilidad", "techStack": "Stack técnico", "outcome": "Resultado de negocio", "tag": "Escalabilidad" },
-    "thisSite": { "title": "santimarquez.es", "shortDescription": "Este sitio. Astro, Tailwind, Motion One. Posicionamiento de liderazgo.", "description": "Posicionamiento de liderazgo minimalista. Astro (velocidad y SEO), Tailwind (consistencia), Motion One (animaciones ligeras).", "tag": "Rendimiento" }
+    "thisSite": { "title": "santimarquez.es", "shortDescription": "Desarrollo aumentado por IA: context, skills, agents, prompts. Hecho con Cursor; calidad y consistencia por diseño.", "description": "Posicionamiento de liderazgo minimalista. Astro (velocidad y SEO), Tailwind (consistencia), Motion One (animaciones ligeras).", "tag": "Rendimiento" }
   },
   "contact": {
     "title": "Trabajemos juntos.",

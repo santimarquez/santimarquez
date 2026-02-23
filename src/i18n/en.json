@@ -66,7 +66,7 @@
     "title": "Featured Projects",
     "alertaCoches": {
       "title": "AlertaCoches.es",
-      "shortDescription": "Secondhand vehicle ads aggregator. Scale, team leadership, full-stack ownership.",
+      "shortDescription": "Three-repo architecture (web, worker, Airflow), event-driven with RabbitMQ. System design and scalability for 12M+ ads.",
       "description": "Secondhand vehicle ads aggregator serving 38K monthly users with 11M total ads and 750K active. Led team of 4; owned roadmap, backend stability, and scalability.",
       "architecture": "System architecture",
       "scalability": "Scalability decisions",
@@ -75,7 +75,7 @@
     },
     "thisSite": {
       "title": "santimarquez.es",
-      "shortDescription": "This site. Astro, Tailwind, Motion One. Recruiter-optimized leadership positioning.",
+      "shortDescription": "AI-augmented development: context, skills, agents, prompts. Built with Cursor; quality and consistency by design.",
       "description": "Minimal, recruiter-optimized leadership positioning. Astro for speed and SEO, Tailwind for consistency, Motion One for lightweight animations."
     }
   },
