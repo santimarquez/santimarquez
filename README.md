@@ -65,7 +65,7 @@ public/         favicon, robots.txt, sitemap.xml, cv/
 
 ## SEO
 
-- Meta tags, canonical URL, Open Graph (add `public/og-image.png` 1200×630 for social previews).
+- Meta tags, canonical URL, Open Graph and Twitter Card using the profile picture as `og:image` (multi-platform social previews).
 - JSON-LD Person schema in layout.
 - Static `public/sitemap.xml` and `public/robots.txt`.
 
