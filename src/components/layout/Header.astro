@@ -22,26 +22,26 @@ const esUrl = getRelativeLocaleUrl('es', '/');
       <span class="hidden sm:inline">Santi Márquez</span>
     </a>
 
-    <!-- Desktop nav -->
-    <div class="hidden items-center gap-6 md:flex lg:gap-8">
+    <!-- Desktop nav: fixed gap and separator width so spacing doesn't change with theme -->
+    <div class="hidden items-center gap-6 md:flex">
       <a href="#experience" class="text-sm font-normal text-charcoal-light hover:text-charcoal dark:text-slate-400 dark:hover:text-slate-200">{t('nav.experience')}</a>
       <a href="#stack" class="text-sm font-normal text-charcoal-light hover:text-charcoal dark:text-slate-400 dark:hover:text-slate-200">{t('nav.stack')}</a>
       <a href="#projects" class="text-sm font-normal text-charcoal-light hover:text-charcoal dark:text-slate-400 dark:hover:text-slate-200">{t('nav.projects')}</a>
       <a href="#contact" class="text-sm font-normal text-charcoal-light hover:text-charcoal dark:text-slate-400 dark:hover:text-slate-200">{t('nav.contact')}</a>
-      <span class="text-slate-300 dark:text-slate-600" aria-hidden="true">|</span>
-      <div class="flex gap-2" role="group" aria-label="Language">
+      <span class="inline-block h-4 w-px shrink-0 bg-slate-300 dark:bg-slate-600" aria-hidden="true"></span>
+      <div class="flex items-center gap-6" role="group" aria-label="Language">
         <a href={enUrl} data-locale="en" class:list={['text-sm font-normal', locale === 'en' ? 'text-accent font-medium cursor-default' : 'text-charcoal-light hover:text-charcoal dark:text-slate-400 dark:hover:text-slate-200 cursor-pointer']}>EN</a>
-        <span class="text-slate-300 dark:text-slate-600" aria-hidden="true">|</span>
+        <span class="inline-block h-4 w-px shrink-0 bg-slate-300 dark:bg-slate-600" aria-hidden="true"></span>
         <a href={esUrl} data-locale="es" class:list={['text-sm font-normal', locale === 'es' ? 'text-accent font-medium cursor-default' : 'text-charcoal-light hover:text-charcoal dark:text-slate-400 dark:hover:text-slate-200 cursor-pointer']}>ES</a>
       </div>
       <ThemeToggle />
     </div>
 
-    <!-- Mobile: hamburger + lang + theme -->
+    <!-- Mobile: hamburger + lang + theme (fixed gap for consistent spacing) -->
     <div class="flex items-center gap-3 md:hidden">
-      <div class="flex gap-2" role="group" aria-label="Language">
+      <div class="flex items-center gap-2" role="group" aria-label="Language">
         <a href={enUrl} data-locale="en" class:list={['text-sm', locale === 'en' ? 'font-medium text-accent cursor-default' : 'text-charcoal-light dark:text-slate-400 cursor-pointer']}>EN</a>
-        <span class="text-slate-300 dark:text-slate-600">|</span>
+        <span class="inline-block h-4 w-px shrink-0 bg-slate-300 dark:bg-slate-600" aria-hidden="true"></span>
         <a href={esUrl} data-locale="es" class:list={['text-sm', locale === 'es' ? 'font-medium text-accent cursor-default' : 'text-charcoal-light dark:text-slate-400 cursor-pointer']}>ES</a>
       </div>
       <ThemeToggle />
@@ -78,18 +78,20 @@ const esUrl = getRelativeLocaleUrl('es', '/');
       const toggle = document.getElementById('nav-menu-toggle');
       const menu = document.getElementById('nav-menu');
       if (!toggle || !menu || toggle.hasAttribute('data-nav-bound')) return;
-      toggle.setAttribute('data-nav-bound', 'true');
+      const toggleEl = toggle;
+      const menuEl = menu;
+      toggleEl.setAttribute('data-nav-bound', 'true');
       function setMenuOpen(open: boolean) {
-        menu.setAttribute('data-state', open ? 'open' : 'closed');
-        menu.setAttribute('aria-hidden', String(!open));
-        toggle.setAttribute('aria-expanded', String(open));
-        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        menuEl.setAttribute('data-state', open ? 'open' : 'closed');
+        menuEl.setAttribute('aria-hidden', String(!open));
+        toggleEl.setAttribute('aria-expanded', String(open));
+        toggleEl.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       }
-      toggle.addEventListener('click', () => {
-        const isOpen = menu.getAttribute('data-state') === 'open';
+      toggleEl.addEventListener('click', () => {
+        const isOpen = menuEl.getAttribute('data-state') === 'open';
         setMenuOpen(!isOpen);
       });
-      menu.querySelectorAll('a').forEach((a) => {
+      menuEl.querySelectorAll('a').forEach((a) => {
         a.addEventListener('click', () => setMenuOpen(false));
       });
     }
