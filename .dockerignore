@@ -8,3 +8,10 @@ dist
 .DS_Store
 .cursor
 .astro
+# Exclude test files so Astro never builds them as endpoints (avoids Vitest in build)
+**/*.test.ts
+**/*.test.js
+**/*.spec.ts
+**/*.spec.js
+tests/
+coverage
