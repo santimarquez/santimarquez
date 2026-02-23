@@ -76,3 +76,5 @@ Place your PDF at `public/cv/SantiMarquez-CV.pdf` for the “Download CV” butt
 ## Environment
 
 Optional: copy `.env.example` to `.env` and set `SITE_URL` if you need to override the site URL (e.g. for staging).
+
+**Contact form (production):** For the contact form to send email when running in Docker/production, pass `MAIL_HOST`, `MAIL_USERNAME`, and `MAIL_PASSWORD` (and optionally `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME`) to the container, e.g. via `environment` or `env_file` in docker-compose.
