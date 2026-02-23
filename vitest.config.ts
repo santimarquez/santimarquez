@@ -4,7 +4,7 @@ import { getViteConfig } from 'astro/config';
 export default getViteConfig({
   test: {
     environment: 'node',
-    include: ['src/**/*.{test,spec}.{js,ts,mjs,cjs}'],
+    include: ['src/**/*.{test,spec}.{js,ts,mjs,cjs}', 'tests/**/*.{test,spec}.{js,ts,mjs,cjs}'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
