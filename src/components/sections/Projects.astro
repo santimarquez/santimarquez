@@ -1,6 +1,5 @@
 ---
 import ProjectCard from '../ui/ProjectCard.astro';
-import { getRelativeLocaleUrl } from 'astro:i18n';
 
 interface Props {
   locale: 'en' | 'es';
@@ -9,13 +8,19 @@ interface Props {
 
 const { locale, t } = Astro.props;
 
+// With prefixDefaultLocale: false, English is at root (/projects/...), Spanish at /es/projects/...
+function projectHref(locale: 'en' | 'es', path: string): string {
+  const base = path.startsWith('/') ? path : `/${path}`;
+  return locale === 'es' ? `/es${base}` : base;
+}
+
 function getTag(t: (k: string) => string, key: string): string {
   const val = t(key);
   return val && !val.startsWith('projects.') ? val : (key.includes('alertaCoches') ? 'Scale Solutions' : 'Performance');
 }
 
-const alertaCochesHref = getRelativeLocaleUrl(locale, '/projects/alertaCoches/');
-const santimarquezEsHref = getRelativeLocaleUrl(locale, '/projects/santimarquez-es/');
+const alertaCochesHref = projectHref(locale, '/projects/alertaCoches/');
+const santimarquezEsHref = projectHref(locale, '/projects/santimarquez-es/');
 ---
 
 <section id="projects" class="px-6 py-20 md:py-28" aria-labelledby="projects-heading">
@@ -33,7 +38,7 @@ const santimarquezEsHref = getRelativeLocaleUrl(locale, '/projects/santimarquez-
         href={alertaCochesHref}
       >
         <div slot="visual" class="flex h-full min-h-[200px] items-center justify-center overflow-hidden bg-slate-100 dark:bg-slate-700">
-          <img src="/projects/alertaCoches-card.png" alt="AlertaCoches.es — car listing" class="h-full w-full object-cover object-center" width="640" height="360" />
+          <img loading="lazy" src="/projects/alertaCoches-card.jpeg" alt="AlertaCoches.es — car listing" class="h-full w-full object-cover object-center" width="640" height="360" />
         </div>
       </ProjectCard>
 
@@ -44,7 +49,7 @@ const santimarquezEsHref = getRelativeLocaleUrl(locale, '/projects/santimarquez-
         href={santimarquezEsHref}
       >
         <div slot="visual" class="flex h-full min-h-[200px] items-center justify-center overflow-hidden bg-slate-100 dark:bg-slate-700">
-          <img src="/projects/santimarquez-card.png" alt="Santi Márquez" class="h-full w-full object-cover object-top" width="640" height="360" />
+          <img loading="lazy" src="/projects/santimarquez-card.png" alt="Santi Márquez" class="h-full w-full object-cover object-top" width="640" height="360" />
         </div>
       </ProjectCard>
     </div>

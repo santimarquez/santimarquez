@@ -1,0 +1,77 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { t } from '../../../utils/i18n';
+
+const locale = 'en';
+const tBind = (key: string) => t(locale, key);
+const backHref = '/';
+
+const stackPills = ['Laravel 9', 'Vue 3', 'Vite', 'MongoDB', 'MySQL', 'RabbitMQ', 'Node.js', 'TypeScript', 'Docker', 'Bitbucket Pipelines', 'Matomo', 'Metabase'];
+---
+
+<MainLayout locale={locale} title="AlertaCoches.es — Santi Márquez" description="Secondhand vehicle ads aggregator. Scale, team leadership, full-stack ownership.">
+  <article class="px-4 py-12 sm:px-6 sm:py-16 md:py-24">
+    <div class="mx-auto max-w-4xl">
+      <a href={backHref} class="inline-flex items-center gap-2 text-sm font-medium text-charcoal-light hover:text-accent dark:text-slate-400 dark:hover:text-accent">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        Back
+      </a>
+
+      <header class="mt-8">
+        <h1 class="text-3xl font-bold text-charcoal dark:text-slate-100 md:text-4xl">AlertaCoches.es</h1>
+        <p class="mt-4 text-lg leading-relaxed text-charcoal-light dark:text-slate-400">{tBind('projects.alertaCoches.description')}</p>
+      </header>
+
+      <!-- Overview -->
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Overview</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">
+          Secondhand vehicle ads aggregator with a Laravel API and Vue SPA, Node.js workers for ingestion and RabbitMQ for events.
+          Ads are stored in MongoDB; user and business data in MySQL. A separate Laravel Blade landing site drives traffic to the app.
+        </p>
+      </section>
+
+      <!-- Placeholder for high-level architecture diagram -->
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Architecture</h2>
+        <div class="mt-4 min-h-[240px] rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 dark:border-slate-700 dark:bg-slate-800/30 flex items-center justify-center">
+          <p class="text-sm text-charcoal-light dark:text-slate-500">Visual schema placeholder — add diagram in a following step</p>
+        </div>
+      </section>
+
+      <!-- Data flow (concise) -->
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Data flow</h2>
+        <ul class="mt-3 space-y-2 text-charcoal-light dark:text-slate-400">
+          <li><strong>Ingestion:</strong> External sources → Node importers → RabbitMQ <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">ad.save</code> → save-ad worker → MongoDB.</li>
+          <li><strong>Notifications:</strong> Worker publishes to <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">alert.new-ad</code>, <code class="rounded bg-slate-200 px-1 dark:bg-slate-700">ad.price-change</code>, etc. → Laravel consumers → email/notifications.</li>
+          <li><strong>Search:</strong> Vue frontend → Laravel API → MongoDB (ads, searches) and MySQL (users, business).</li>
+        </ul>
+      </section>
+
+      <!-- Placeholder for detailed schema -->
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">System design</h2>
+        <div class="mt-4 min-h-[200px] rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 dark:border-slate-700 dark:bg-slate-800/30 flex items-center justify-center">
+          <p class="text-sm text-charcoal-light dark:text-slate-500">Visual schema placeholder</p>
+        </div>
+      </section>
+
+      <!-- Tech stack pills -->
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Tech stack</h2>
+        <div class="mt-4 flex flex-wrap gap-2">
+          {stackPills.map((tech) => (
+            <span class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-sm font-medium text-charcoal-light dark:border-slate-600 dark:bg-slate-700/50 dark:text-slate-300">{tech}</span>
+          ))}
+        </div>
+      </section>
+
+      <!-- Outcome -->
+      <section class="mt-12">
+        <h2 class="text-xl font-bold text-charcoal dark:text-slate-100">Outcome</h2>
+        <p class="mt-3 text-charcoal-light dark:text-slate-400">12M+ ads, 750K active, 38K MAU, 1.1K new registrations/month. High availability, security, and performance for vehicle ad search and management.</p>
+      </section>
+    </div>
+  </article>
+</MainLayout>
