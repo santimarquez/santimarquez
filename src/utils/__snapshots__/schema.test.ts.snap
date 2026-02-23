@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`buildPersonSchema > matches snapshot for full options 1`] = `
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "email": "jane@example.com",
+  "jobTitle": "Engineer",
+  "name": "Jane Doe",
+  "sameAs": [
+    "https://github.com/jane",
+  ],
+  "url": "https://example.com",
+}
+`;

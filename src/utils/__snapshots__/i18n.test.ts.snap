@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`i18n snapshots > matches snapshot for hero keys (en) 1`] = `
+{
+  "contact": "Contact",
+  "headline": "Engineering Leader.",
+  "subheadline": "Building scalable distributed systems and high-performing engineering cultures. Product-minded, leadership-driven, 100% remote.",
+}
+`;
+
+exports[`i18n snapshots > matches snapshot for nav keys (es) 1`] = `
+{
+  "contact": "Contacto",
+  "experience": "Experiencia",
+  "projects": "Proyectos",
+}
+`;

@@ -127,6 +127,7 @@ Production-ready personal website for an Engineering Manager: a **recruiter-opti
 6. **Diagrams:** Clean SVG, minimalist, consistent with theme.
 7. After notable changes, update **ai/context/RECENT_CHANGES.md** and add docs in **ai/docs/** if needed.
 8. Do **not** use placeholder lorem ipsum; use structured placeholders derived from project/CV intent.
+9. **Plans:** Always add **automated tests (functional + snapshot)** and **~80% code coverage** as the **last step** of any implementation plan.
 
 ## Reference Files
 

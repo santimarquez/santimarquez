@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import nodemailer from 'nodemailer';
+import { escapeHtml } from '../../utils/escapeHtml';
 
 export const prerender = false;
 
@@ -79,11 +80,3 @@ export const POST: APIRoute = async ({ request }) => {
   });
 };
 
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
