@@ -4,12 +4,13 @@ import { escapeHtml } from '../../utils/escapeHtml';
 
 export const prerender = false;
 
+// Use process.env at runtime so production Docker/container env vars are used (import.meta.env is build-time only).
 function getTransporter() {
-  const host = import.meta.env.MAIL_HOST;
-  const port = Number(import.meta.env.MAIL_PORT) || 587;
-  const user = import.meta.env.MAIL_USERNAME;
-  const pass = import.meta.env.MAIL_PASSWORD;
-  const secure = import.meta.env.MAIL_ENCRYPTION === 'ssl';
+  const host = process.env.MAIL_HOST;
+  const port = Number(process.env.MAIL_PORT) || 587;
+  const user = process.env.MAIL_USERNAME;
+  const pass = process.env.MAIL_PASSWORD;
+  const secure = process.env.MAIL_ENCRYPTION === 'ssl';
 
   if (!host || !user || !pass) {
     throw new Error('Missing MAIL_HOST, MAIL_USERNAME or MAIL_PASSWORD');
@@ -53,8 +54,8 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  const fromAddress = import.meta.env.MAIL_FROM_ADDRESS || 'noreply@santimarquez.es';
-  const fromName = import.meta.env.MAIL_FROM_NAME || 'Santi Márquez';
+  const fromAddress = process.env.MAIL_FROM_ADDRESS || 'noreply@santimarquez.es';
+  const fromName = process.env.MAIL_FROM_NAME || 'Santi Márquez';
 
   try {
     const transporter = getTransporter();
