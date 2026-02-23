@@ -1,0 +1,21 @@
+# Production override: use with Traefik (inverseproxy_shared network must exist).
+# Run: docker compose -f docker-compose.yml -f docker-compose.prod.yml up
+services:
+  santimarquez:
+    ports: []  # no host port; Traefik routes by Host
+    networks:
+      - default
+      - inverseproxy_shared
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=inverseproxy_shared"
+      - "traefik.http.services.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}.loadbalancer.server.port=${TRAEFIK_SANTIMARQUEZ_PORT}"
+      - "traefik.http.routers.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}-https.entrypoints=websecure"
+      - "traefik.http.routers.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}-https.rule=Host(`${TRAEFIK_SANTIMARQUEZ_URL}`)"
+      - "traefik.http.routers.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}-https.tls=true"
+      - "traefik.http.routers.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}-https.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}-https.service=${TRAEFIK_STACK_ENV}-${TRAEFIK_SANTIMARQUEZ_NAME}"
+
+networks:
+  inverseproxy_shared:
+    external: true
